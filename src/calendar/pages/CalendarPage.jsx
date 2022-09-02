@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import { addHours } from 'date-fns';
 import { localizer, getMessagesES } from '../../helpers';
-import { Navbar, CalendarEvent, CalendarModal } from '../';
+import { Navbar, CalendarEvent, CalendarModal, FabAddNew } from '../';
 import { useUiStore, useCalendarStore } from '../../hooks/';
 
 export const CalendarPage = () => {
@@ -63,6 +62,7 @@ export const CalendarPage = () => {
             />
 
             <CalendarModal/>
+            <FabAddNew />
         </>
     )
 }
