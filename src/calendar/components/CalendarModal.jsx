@@ -9,7 +9,7 @@ import es from 'date-fns/locale/es';
 
 import Swal from 'sweetalert2';
 
-import { useUiStore } from '../../hooks/useUiStore';
+import { useUiStore } from '../../hooks';
 
 registerLocale('es', es);
 
