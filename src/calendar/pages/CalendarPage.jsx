@@ -4,7 +4,7 @@ import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { localizer, getMessagesES } from '../../helpers';
-import { Navbar, CalendarEvent, CalendarModal, FabAddNew } from '../';
+import { Navbar, CalendarEvent, CalendarModal, FabAddNew, FabDelete } from '../';
 import { useUiStore, useCalendarStore } from '../../hooks/';
 
 export const CalendarPage = () => {
@@ -16,15 +16,25 @@ export const CalendarPage = () => {
 
     const eventStyleGetter = (event, start, end, isSelected) => {
         const style = {
-            backgroundColor: '#347CF7',
-            borderRadius: '0px',
-            opacity: 0.8,
-            color: 'white'
+            notSelected: {
+                backgroundColor: '#347CF7',
+                borderRadius: '0px',
+                opacity: 0.8,
+                color: 'white'
+            },
+            selected: {
+                backgroundColor: '#347CF7',
+                borderRadius: '0px',
+                opacity: 0.6,
+                color: 'white'
+            },            
         }
 
-        return {
-            style
+        if (isSelected) {
+            return style.selected
         }
+
+        return style.notSelected
     }
 
     const onDoubleClick = (event) => {
@@ -63,6 +73,7 @@ export const CalendarPage = () => {
 
             <CalendarModal/>
             <FabAddNew />
+            <FabDelete />
         </>
     )
 }
