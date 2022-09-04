@@ -40,7 +40,7 @@ export const useAuthStore = () => {
                 uid: data.uid,
             }))
         } catch(error) {
-            dispatch(onLogout('El usuario ya existe'));
+            dispatch(onLogout(error.response.data?.msg || ''));
             
             setTimeout(() => {
                 dispatch(clearErrorMessage());
