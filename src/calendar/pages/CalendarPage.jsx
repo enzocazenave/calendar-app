@@ -1,40 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { localizer, getMessagesES } from '../../helpers';
 import { Navbar, CalendarEvent, CalendarModal, FabAddNew, FabDelete } from '../';
-import { useUiStore, useCalendarStore } from '../../hooks/';
+import { useUiStore, useCalendarStore, useAuthStore } from '../../hooks/';
 
 export const CalendarPage = () => {
 
+    const { user } = useAuthStore();
     const { openDateModal } = useUiStore();
-    const { events, setActiveEvent } = useCalendarStore();
+    const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
     
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week');
 
     const eventStyleGetter = (event, start, end, isSelected) => {
+
+        const isMyEvent = (user.uid === event.user._id) || (user.uid === event.user.uid);
+
         const style = {
-            notSelected: {
-                backgroundColor: '#347CF7',
-                borderRadius: '0px',
-                opacity: 0.8,
-                color: 'white'
-            },
-            selected: {
-                backgroundColor: '#347CF7',
-                borderRadius: '0px',
-                opacity: 0.6,
-                color: 'white'
-            },            
+            backgroundColor: isMyEvent ? '#347CF7' : '#465660',
+            borderRadius: '4px',
+            opacity: 0.8,
+            color: 'white'          
         }
 
-        if (isSelected) {
-            return style.selected
-        }
-
-        return style.notSelected
+        return { 
+            style 
+        };
     }
 
     const onDoubleClick = (event) => {
@@ -48,6 +42,8 @@ export const CalendarPage = () => {
     const onViewChanged = (event) => {
         localStorage.setItem('lastView', event);
     }
+
+    useEffect(() => { startLoadingEvents() }, []);
 
     return (
         <>
