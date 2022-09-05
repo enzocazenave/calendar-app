@@ -62,3 +62,30 @@
     position: fixed;
     left: 25px;
 }
+
+.container-spinner {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border-radius: 50%;
+    border: 7px solid rgba(0,0,0,.1);
+    border-left-color: #09f;
+    height: 100px;
+    width: 100px;
+    animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
